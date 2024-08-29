@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار شبكات الحاسوب</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-center">اختبار شبكات الحاسوب</h1>
+        <form id="quizForm">
+            <div class="mb-4">
+                <label for="studentName" class="block text-gray-700 text-sm font-bold mb-2">اسم الطالب:</label>
+                <input type="text" id="studentName" name="studentName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+            <div id="quiz" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <!-- الأسئلة ستضاف هنا بواسطة JavaScript -->
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                إرسال الإجابات
+            </button>
+        </form>
+        <div id="result" class="mt-4 text-lg font-bold"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "ما هو بروتوكول TCP/IP؟",
+                answers: [
+                    "بروتوكول لنقل الصور",
+                    "مجموعة من البروتوكولات المستخدمة للاتصال عبر الإنترنت",
+                    "نوع من أنواع الكابلات",
+                    "برنامج لحماية الشبكات"
+                ],
+                correct: 1
+            },
+            {
+                question: "ما هو عنوان IP؟",
+                answers: [
+                    "رقم تعريف فريد لكل جهاز على الشبكة",
+                    "اسم موقع الويب",
+                    "كلمة المرور للشبكة",
+                    "نوع من أنواع البرمجيات"
+                ],
+                correct: 0
+            },
+            {
+                question: "ما هو الـ Router؟",
+                answers: [
+                    "جهاز لتخزين البيانات",
+                    "برنامج لتصفح الإنترنت",
+                    "جهاز لتوجيه البيانات بين الشبكات",
+                    "نوع من أنواع الفيروسات"
+                ],
+                correct: 2
+            },
+            {
+                question: "ما هو بروتوكول HTTP؟",
+                answers: [
+                    "بروتوكول لنقل البريد الإلكتروني",
+                    "بروتوكول لنقل النصوص التشعبية",
+                    "بروتوكول لحماية الشبكات",
+                    "بروتوكول لنقل الملفات"
+                ],
+                correct: 1
+            },
+            {
+                question: "ما هو الـ Firewall؟",
+                answers: [
+                    "جهاز لتسريع الإنترنت",
+                    "برنامج لتصفح الويب",
+                    "نظام أمان يراقب ويتحكم في حركة الشبكة",
+                    "نوع من أنواع الكابلات"
+                ],
+                correct: 2
+            },
+            {
+                question: "ما هو الـ DNS؟",
+                answers: [
+                    "نظام أسماء النطاقات",
+                    "بروتوكول نقل البيانات",
+                    "نوع من أنواع الشبكات",
+                    "برنامج لحماية الشبكات"
+                ],
+                correct: 0
+            },
+            {
+                question: "ما هو الـ LAN؟",
+                answers: [
+                    "شبكة واسعة النطاق",
+                    "شبكة محلية",
+                    "بروتوكول اتصال",
+                    "نوع من أنواع الكابلات"
+                ],
+                correct: 1
+            },
+            {
+                question: "ما هو بروتوكول FTP؟",
+                answers: [
+                    "بروتوكول نقل الملفات",
+                    "بروتوكول حماية الشبكات",
+                    "بروتوكول نقل النصوص",
+                    "بروتوكول البريد الإلكتروني"
+                ],
+                correct: 0
+            },
+            {
+                question: "ما هو الـ MAC address؟",
+                answers: [
+                    "عنوان البريد الإلكتروني",
+                    "عنوان الموقع الإلكتروني",
+                    "العنوان الفيزيائي الفريد لجهاز الشبكة",
+                    "رقم الهاتف المحمول"
+                ],
+                correct: 2
+            },
+            {
+                question: "ما هو الـ VPN؟",
+                answers: [
+                    "نوع من أنواع الفيروسات",
+                    "برنامج لتصفح الإنترنت",
+                    "شبكة خاصة افتراضية",
+                    "بروتوكول نقل البيانات"
+                ],
+                correct: 2
+            }
+        ];
+
+        function renderQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('mb-6');
+                questionDiv.innerHTML = `
+                    <h2 class="font-bold text-lg mb-2">السؤال ${index + 1}:</h2>
+                    <p class="mb-2">${q.question}</p>
+                    <div class="ml-4">
+                        ${q.answers.map((answer, i) => `
+                            <div>
+                                <input type="radio" name="q${index}" value="${i}" id="q${index}a${i}" required>
+                                <label for="q${index}a${i}">${answer}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function checkAnswers(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            let score = 0;
+            const answers = questions.map((q, index) => {
+                const selectedAnswer = formData.get(`q${index}`);
+                if (selectedAnswer && parseInt(selectedAnswer) === q.correct) {
+                    score++;
+                }
+                return {
+                    question: q.question,
+                    selectedAnswer: selectedAnswer ? q.answers[parseInt(selectedAnswer)] : "لم يتم الإجابة",
+                    correctAnswer: q.answers[q.correct]
+                };
+            });
+
+            const studentName = formData.get('studentName');
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = `${studentName}، لقد أجبت على ${score} من أصل ${questions.length} أسئلة بشكل صحيح.`;
+
+            // إرسال النتائج عبر Formspree
+            const formspreeEndpoint = 'https://formspree.io/f/YOUR_FORMSPREE_ID'; // استبدل YOUR_FORMSPREE_ID بالمعرف الخاص بك
+            fetch(formspreeEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    studentName: studentName,
+                    score: `${score}/${questions.length}`,
+                    answers: answers
+                }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("تم إرسال النتائج بنجاح!");
+                } else {
+                    alert("حدث خطأ أثناء إرسال النتائج.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("حدث خطأ أثناء إرسال النتائج.");
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuiz();
+            document.getElementById('quizForm').addEventListener('submit', checkAnswers);
+        });
+    </script>
+</body>
+</html>
